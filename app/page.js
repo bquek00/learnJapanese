@@ -7,6 +7,7 @@ export default function Home() {
   return (
   
     <div>
+      <Navbar />
       <BigCard/>
       <DefaultCard id='about'>
         <BasicCard 
