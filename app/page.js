@@ -1,12 +1,17 @@
+"use client";
 import Navbar from '@/components/NavBar'
 import BigCard from '@/components/BigCard'
 import DefaultCard from '@/components/DefaultCard'
 import BasicCard from '@/components/BasicCard'
+import { useEffect } from 'react';
+import { AppContext } from '@/context/NavContext';
+import { createContext, useContext} from 'react';
 
 export default function Home() {
+  
   return (
   
-    <div>
+    <div className='overflow-hidden'>
       <Navbar />
       <BigCard/>
       <DefaultCard id='about'>

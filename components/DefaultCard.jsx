@@ -1,6 +1,6 @@
 export default function DefaultCard({children, id}) {
     return (
-       <div className="h-screen flex items-center justify-center snap-center" id={id}>
+       <div className="overflow-hidden h-auto md:h-screen flex items-center justify-center snap-start" id={id}>
         {children}
        </div>
     )

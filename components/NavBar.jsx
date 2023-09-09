@@ -16,7 +16,6 @@ export default function NavBar() {
 
   useEffect(() => {
     const handleScroll = () => {
-        console.log(pathname);
 
     const docViewTop = window.scrollY;
     const mainCard = document.querySelector('#main');
@@ -87,7 +86,7 @@ export default function NavBar() {
                             </li>
                             <li>
                                 <Link href="/login" 
-                                onClick={() => handleLinkClick("account")}
+                                //onClick={() => handleLinkClick("account")}
                                 className={
                                     `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
                                     ${activeLink=="account" ? "md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500":
@@ -100,7 +99,9 @@ export default function NavBar() {
                 </div>
 
                 <div className="flex md:order-2">
-                    <Link onClick={() => handleLinkClick("account")} href="/login" type="button" className="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <Link 
+                    //onClick={() => handleLinkClick("account")} 
+                    href="/login" type="button" className="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Login
                     </Link>
                     <button data-collapse-toggle="navbar-sticky" type="button" 
