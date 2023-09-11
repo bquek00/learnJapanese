@@ -1,5 +1,5 @@
 "use client";
-import Navbar from '@/components/NavBar'
+import NavBar from '@/components/NavBar'
 import BigCard from '@/components/BigCard'
 import DefaultCard from '@/components/DefaultCard'
 import BasicCard from '@/components/BasicCard'
@@ -8,11 +8,16 @@ import { AppContext } from '@/context/NavContext';
 import { createContext, useContext} from 'react';
 
 export default function Home() {
+
+  const { activeLink, setActiveLink } = useContext(AppContext);
+  useEffect(() => {
+    setActiveLink("home");
+  }, []);
   
   return (
   
     <div className='overflow-hidden'>
-      <Navbar />
+      <NavBar />
       <BigCard/>
       <DefaultCard id='about'>
         <BasicCard 

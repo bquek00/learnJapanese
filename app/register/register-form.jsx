@@ -28,7 +28,7 @@ export default function Register() {
                     console.log("error: ", error.message);
                 } else {
                     await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve))
-                    //router.push("/account");
+                    router.push("/account");
                 } 
             } catch (error) {
                 console.log("Register error: ", error.message);
@@ -39,7 +39,7 @@ export default function Register() {
     }
 
     return(
-        <section className="bg-fixed bg-black/[.6]">
+        <section className="bg-fixed bg-black/[.6] pt-10"> 
             <div className="h-screen flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
