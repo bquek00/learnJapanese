@@ -3,33 +3,35 @@ import { useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
+import Loader from "@/components/Loader";
 
 export default function Login() {
     const supabase = createClientComponentClient()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
 
     const handleLogin = async (e) => {
-        console.log(email);
-        console.log(password);
         e.preventDefault();
     
         try {
+            setLoading(true);  
           const { error, data } = await supabase.auth.signInWithPassword({email: email, password: password });
           if (error) {
             console.log('Login error:', error.message);
             alert('Invalid Credentials');
           } else {
-            console.log('Logged in:', data);
-            // Handle successful login (e.g., redirect to dashboard)
-            router.push("/account");
+            await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve))
+            //router.push("/account");
             
           }
         } catch (error) {
           console.error('Login error:', error.message);
-        }
+        } finally {
+            setLoading(false);
+    }
     };
 
     return(
@@ -56,7 +58,15 @@ export default function Login() {
                             <div className="flex items-center justify-between">
                                 <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                             </div>
-                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">Sign in</button>
+
+                            <div className="flex justify-center">
+                            {loading ? (<Loader/>) : (
+                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">
+                                Sign in
+                            </button>
+                           )}
+                           </div>
+                           
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Don’t have an account yet? <Link href="/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
                             </p>
