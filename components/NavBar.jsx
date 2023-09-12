@@ -6,10 +6,12 @@ import { AppContext } from '@/context/NavContext';
 import { createContext, useContext} from 'react';
 
 
+
 export default function NavBar() {
     const pathname = usePathname();
     const { activeLink, setActiveLink, user, setUser} = useContext(AppContext);
     const [mobNav, setMobNav] = useState(false);
+    
 
     const handleLinkClick = (link) => {
         setActiveLink(link);
@@ -20,7 +22,7 @@ export default function NavBar() {
     }
 
   useEffect(() => {
-
+    
     const handleScroll = () => {
 
     const docViewTop = window.scrollY;
@@ -41,6 +43,8 @@ export default function NavBar() {
     }
 
     }; 
+
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll);
 

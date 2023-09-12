@@ -10,9 +10,6 @@ import { createContext, useContext} from 'react';
 export default function Home() {
 
   const { activeLink, setActiveLink } = useContext(AppContext);
-  useEffect(() => {
-    setActiveLink("home");
-  }, []);
   
   return (
   
