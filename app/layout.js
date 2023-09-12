@@ -2,6 +2,8 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import NavBar from '@/components/NavBar'
 import { AppProvider } from '@/context/NavContext'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,12 +15,17 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const supabase = createServerComponentClient({ cookies })
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppProvider>{children}</AppProvider>
+        <AppProvider session={session}>{children}</AppProvider>
     </body>
     </html>
   )
