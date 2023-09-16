@@ -3,6 +3,7 @@ import NavBar from '@/components/NavBar'
 import BigCard from '@/components/BigCard'
 import DefaultCard from '@/components/DefaultCard'
 import BasicCard from '@/components/BasicCard'
+import Jumbotron from '@/components/Jumbotron';
 import { useEffect } from 'react';
 import { AppContext } from '@/context/NavContext';
 import { createContext, useContext} from 'react';
@@ -15,7 +16,9 @@ export default function Home() {
   
     <div className='overflow-hidden'>
       <NavBar />
-      <BigCard/>
+      <BigCard>
+        <Jumbotron heading="Learn Japanese" subHeading="A Japanese Vocabulary Application" callToAction="Get Started"/>
+      </BigCard>
       <DefaultCard id='about'>
         <BasicCard 
         title="About" 

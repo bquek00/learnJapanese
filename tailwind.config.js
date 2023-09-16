@@ -18,6 +18,9 @@ module.exports = {
       width: {
         basic: '1000px',
       },
+      inset: {
+        basic: '20%',
+      },
     },
   },
   plugins: [],

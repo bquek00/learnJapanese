@@ -1,19 +1,34 @@
 "use client";
 import { useState } from 'react';
+import Cards from './cards';
 
 export default function Learn() {
     const [searchInput, setSearchInput] = useState('');
     const [data, setData] = useState(null)
+    const [reSearch, setReSearch] = useState(false);
 
     async function SearchWord() {
         try {
-          const response = await fetch('/api/words'); // Replace 'your-endpoint' with the actual endpoint URL
+          const response = await fetch(`/api/words?key=${searchInput}`); // Replace 'your-endpoint' with the actual endpoint URL
           if (!response.ok) {
             throw new Error(`Request failed with status: ${response.status}`);
           }
           
           const data = await response.json();
           console.log(data);
+          setData(data);
+
+          var results = document.getElementById('results');
+          results.scrollTop = 0;
+
+          var pronounciations = document.querySelectorAll('.card');
+
+          // Scroll each card to the top
+          pronounciations.forEach(pronounciation => {
+              pronounciation.scrollTop = 0;
+          });
+          
+
         } catch (error) {
           console.error('Error fetching data:', error);
           throw error;
@@ -21,9 +36,9 @@ export default function Learn() {
       }
 
     return(
-        <div>
-            
-            <form>   
+      
+        <div className="bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-black/[.6]">
+            <form className="absolute inset-basic inset-x-1/4">   
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -38,6 +53,12 @@ export default function Learn() {
                     <button onClick={(e) => {e.preventDefault(); SearchWord()}} type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
+
+            <div id="results" className='mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll' >
+            {data && data.data.map((wordEntry, index) => (
+                <Cards key={index} word={wordEntry} />
+            ))}
+            </div>
 
         </div>
     )
