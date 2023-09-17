@@ -5,9 +5,11 @@ import Cards from './cards';
 export default function Learn() {
     const [searchInput, setSearchInput] = useState('');
     const [data, setData] = useState(null)
-    const [reSearch, setReSearch] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     async function SearchWord() {
+        var results = document.getElementById('results');
+          results.scrollTop = 0;
         try {
           const response = await fetch(`/api/words?key=${searchInput}`); // Replace 'your-endpoint' with the actual endpoint URL
           if (!response.ok) {
@@ -15,11 +17,7 @@ export default function Learn() {
           }
           
           const data = await response.json();
-          console.log(data);
           setData(data);
-
-          var results = document.getElementById('results');
-          results.scrollTop = 0;
 
           var pronounciations = document.querySelectorAll('.card');
 

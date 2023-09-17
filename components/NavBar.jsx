@@ -11,6 +11,7 @@ export default function NavBar() {
     const pathname = usePathname();
     const { activeLink, setActiveLink, user, setUser} = useContext(AppContext);
     const [mobNav, setMobNav] = useState(false);
+    const [dropDown, setDropDown] = useState(false);
     
 
     const handleLinkClick = (link) => {
@@ -19,6 +20,10 @@ export default function NavBar() {
 
     const toggleMobNav = () => {
         mobNav ? setMobNav(false): setMobNav(true);
+    }
+
+    const toggleDropDown = () => {
+        dropDown ? setDropDown(false): setDropDown(true);
     }
 
   useEffect(() => {
@@ -63,17 +68,17 @@ export default function NavBar() {
                     </Link>
 
                     <div className={`items-center justify-between absolute inset-y-3/4 inset-x-0
-                    md:static ${mobNav ? 'block' : 'hidden'} 
-                    w-full md:flex md:w-auto md:order-1`}
+                    lg:static ${mobNav ? 'block' : 'hidden'} 
+                    w-full lg:flex lg:w-auto lg:order-1`}
                      id="navbar-sticky">
-                        <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <ul className="flex flex-col p-4 lg:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
                             <li>
                                 <Link href="/#" 
                                 onClick={() => handleLinkClick("home")}
                                 className={
-                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
-                                    ${activeLink=="home" ? "md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500":
-                                 "md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`
+                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent
+                                    ${activeLink=="home" ? "lg:bg-transparent lg:text-blue-700 lg:p-0 lg:dark:text-blue-500":
+                                 "lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"}`
                                 } 
                                 >Home</Link>
                             </li>
@@ -81,9 +86,9 @@ export default function NavBar() {
                                 <Link href="/#about"
                                 onClick={() => handleLinkClick("about")}
                                 className={
-                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
-                                    ${activeLink=="about" ? "md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500":
-                                 "md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`
+                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent
+                                    ${activeLink=="about" ? "lg:bg-transparent lg:text-blue-700 lg:p-0 lg:dark:text-blue-500":
+                                 "lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"}`
                                 } 
                                 >About</Link>
                             </li>
@@ -91,61 +96,76 @@ export default function NavBar() {
                                 <Link href="/#contact" 
                                 onClick={() => handleLinkClick("contact")}
                                 className={
-                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
-                                    ${activeLink=="contact" ? "md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500":
-                                 "md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`
+                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent
+                                    ${activeLink=="contact" ? "lg:bg-transparent lg:text-blue-700 lg:p-0 lg:dark:text-blue-500":
+                                 "lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"}`
                                 } 
                                 >Contact</Link>
                             </li>
 
                             <li>
-                                <Link href="/learn" 
-                                //onClick={() => handleLinkClick("account")}
-                                className={
-                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
-                                    ${activeLink=="learn" ? "md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500":
-                                 "md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`
-                                } 
-                                >Learn</Link>
+                                <button onClick={() => toggleDropDown()}
+                                className={`flex items-center justify-between w-full py-2 pl-3 pr-4 ${activeLink=="learn" ? "lg:bg-transparent lg:text-blue-700 lg:p-0 lg:dark:text-blue-500":
+                                "lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"}`}>
+                                    Study 
+                                    <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+                                    <div id="dropdownNavbar" className={`z-10 ${dropDown ? "absolute" : "hidden"} font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
+                                        <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                                        <li>
+                                            <Link href="/learn" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Search</Link>
+                                        </li>
+                                        <li>
+                                            <a href="/test" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Test</a>
+                                        </li>
+                                        </ul>
+                                    </div>
                             </li>
+                            
+
+
 
                             <li>
                                 <Link href="/account" 
                                 //onClick={() => handleLinkClick("account")}
                                 className={
-                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent
-                                    ${activeLink=="account" ? "md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500":
-                                 "md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`
+                                    `block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent
+                                    ${activeLink=="account" ? "lg:bg-transparent lg:text-blue-700 lg:p-0 lg:dark:text-blue-500":
+                                 "lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"}`
                                 } 
                                 >Account</Link>
                             </li>
 
 
                             <li>
-                                <Link href="/login" 
-                                //onClick={() => handleLinkClick("account")}
-                                className={
-                                    `block md:hidden  py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent`}
-                                >Login</Link>
+                                <form action={user ? "/auth/signout": "/login"} method={user ? "post": "/get"}>
+                                    <button type="submit"
+                                    //onClick={() => handleLinkClick("account")}
+                                    className={
+                                        `block lg:hidden  w-full text-left py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent`}
+                                    >{user ? "Logout" : "Login"} </button>
+                                </form>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="flex md:order-2">
+                <div className="flex lg:order-2">
 
                 <form action={user ? "/auth/signout": "/login"} method={user ? "post": "/get"}>
                     <button 
                     href= {user ? "/auth/signout": "/login"} 
                     type="submit" 
-                    className="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    className="hidden lg:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 lg:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         {user ? "Logout" : "Login"} 
                     </button>
                 </form>
 
 
                     <button data-collapse-toggle="navbar-sticky" type="button" 
-                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" 
+                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" 
                     aria-controls="navbar-sticky" aria-expanded="false"
                     onClick={() => toggleMobNav()}
                     >
