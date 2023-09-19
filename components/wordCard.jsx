@@ -2,12 +2,47 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useState } from 'react';
 
-export default function Cards({word}) {
+export default function Cards({word, isSearch, cid, onDelete}) {
     const supabase = createClientComponentClient()
     const [popUp, setPopup] = useState(false);
 
     const showPopup = () => {
         setPopup(true);
+    };
+
+    const del = async (toAdd, toDefine) => {
+        try {
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+            
+            if (session) {
+                var user = session?.user?.id
+
+                const { data, error } = await supabase
+                .from('notes')
+                .delete()
+                .eq('id', cid)
+                .eq('uid', session?.user?.id)
+
+                onDelete(cid)
+                
+
+                alert("Deleted " + toAdd)
+
+                if (error) {
+                    console.log(error);
+                }
+
+            } else {
+                alert("Please Login")
+            }
+
+            
+
+        } catch (error) {
+            alert("Error fetching session:" + error);
+        }
     };
 
     const add = async (toAdd, toDefine) => {
@@ -68,21 +103,34 @@ export default function Cards({word}) {
             alert("Error fetching session:" + error);
         }
     };
+
     const handlePopup = (command) => {
         if (command === "add") {
             add(word.slug, word)
+        } else if (command === "delete") {
+            del(word.slug, word)
         }
         setPopup(false);
     };
     
+    const handleClick =() => {
+        if (isSearch) {
+            checkAdded(word.slug, word);
+        } else {
+            showPopup();
+        }
+    }
+
     return (
         <div className="bg-white w-9/12 mx-auto my-10 p-3 rounded-xl break-all">
         <div className="flex justify-between">
             <h1 className="text-2xl md:text-4xl">{word.slug}</h1>
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
-            hidden md:block"
-            onClick={() => checkAdded(word.slug, word)}>
-                Add to notes
+            <button className={`text-white 
+            ${isSearch ? "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300" : "bg-red-700 hover:bg-red-800 focus:ring-red-300"}
+            focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
+            hidden md:block`}
+            onClick={() => handleClick()}>
+                {isSearch ? "Add to notes" : "Delete"}
             </button>
 
         </div>
@@ -115,10 +163,12 @@ export default function Cards({word}) {
 
         </div>
 
-        <button className="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
-            md:hidden"
-            onClick={() => checkAdded(word.slug, word)}>
-                Add to notes
+        <button className={`text-white 
+            ${isSearch ? "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300" : "bg-red-700 hover:bg-red-800 focus:ring-red-300"}
+            focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
+            md:hidden`}
+            onClick={() => handleClick()}>
+                {isSearch ? "Add to notes" : "Delete"}
             </button>
 
         <div className={`${popUp ? "block" : "hidden"}`}>
@@ -130,9 +180,11 @@ export default function Cards({word}) {
                             <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
-                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Duplicate detected. Add anyway?</h3>
+                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                {isSearch ? "Duplicate detected. Add anyway?" : "Are you sure?"}
+                                </h3>
                             <button 
-                            onClick={() => handlePopup("add")}
+                            onClick={() => handlePopup(isSearch ? "add" : "delete")}
                             data-modal-hide="popup-modal" type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                 Yes
                             </button>
