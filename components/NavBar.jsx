@@ -118,6 +118,9 @@ export default function NavBar() {
                                             <Link href="/learn" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Search</Link>
                                         </li>
                                         <li>
+                                            <Link href="/notes" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notes</Link>
+                                        </li>
+                                        <li>
                                             <a href="/test" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Test</a>
                                         </li>
                                         </ul>

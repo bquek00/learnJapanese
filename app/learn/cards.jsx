@@ -77,37 +77,38 @@ export default function Cards({word}) {
     };
     
     return (
-        <div className="bg-white w-9/12 mx-auto my-10 p-3 rounded-xl">
+        <div className="bg-white w-9/12 mx-auto my-10 p-3 rounded-xl break-all">
         <div className="flex justify-between">
-            <h1 className="text-4xl">{word.slug}</h1>
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center"
+            <h1 className="text-2xl md:text-4xl">{word.slug}</h1>
+            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
+            hidden md:block"
             onClick={() => checkAdded(word.slug, word)}>
                 Add to notes
             </button>
 
         </div>
         <div>
-            <h2 className="text-3xl">
+            <h2 className="text-xl md:text-3xl">
                 Definitions
             </h2>
             <div>
                 {word.senses.map((sense, senseIndex) => (
                     <div key={senseIndex}>
-                        <p key={senseIndex + 1} className="text-2xl">{sense.parts_of_speech.join(', ')}</p>
-                        <p key={senseIndex + 2}>{sense.english_definitions.join(', ')}</p>
+                        <p key={senseIndex + 1} className="text-lg md:text-2xl">{sense.parts_of_speech.join(', ')}</p>
+                        <p key={senseIndex + 2} className="text-sm md:text-base">{sense.english_definitions.join(', ')}</p>
                     </div>
                 ))}
             </div>
         </div>
 
         <div>
-            <h2 className="text-3xl">
+            <h2 className="text-xl md:text-3xl">
                 Pronounciations
             </h2>
 
             <div className="max-h-24 overflow-scroll card">
             {word.japanese.map((form, formIndex) => (
-                <p key={formIndex + 3} className="">
+                <p key={formIndex + 3} className="text-sm md:text-base break-normal">
                     Word: {form.word || '-'} | Reading: {form.reading || '-'}
                 </p>
             ))}
