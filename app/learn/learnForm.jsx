@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Cards from './cards';
+import Loader from '@/components/Loader';
 
 export default function Learn() {
     const [searchInput, setSearchInput] = useState('');
@@ -8,8 +9,7 @@ export default function Learn() {
     const [loading, setLoading] = useState(false)
 
     async function SearchWord() {
-        var results = document.getElementById('results');
-          results.scrollTop = 0;
+        setLoading(true);
         try {
           const response = await fetch(`/api/words?key=${searchInput}`); // Replace 'your-endpoint' with the actual endpoint URL
           if (!response.ok) {
@@ -18,6 +18,11 @@ export default function Learn() {
           
           const data = await response.json();
           setData(data);
+
+          setLoading(false);
+
+          var results = document.getElementById('results');
+          results.scrollTop = 0;
 
           var pronounciations = document.querySelectorAll('.card');
 
@@ -52,12 +57,13 @@ export default function Learn() {
                 </div>
             </form>
 
-            <div id="results" className='mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll' >
+            <div id="results" className={`${loading ? "invisible" : "visible"} mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll`} >
             {data && data.data.map((wordEntry, index) => (
                 <Cards key={index} word={wordEntry} />
             ))}
             </div>
-
+            <div className={`${loading ? "visible" : "invisible"} absolute inset-y-basic mt-20 inset-x-1/2`}><Loader/></div>
+            
         </div>
     )
 }
