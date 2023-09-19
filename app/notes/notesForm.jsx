@@ -7,12 +7,19 @@ import { useEffect } from 'react';
 import Cards from './notes-card';
 
 export default function Notes({session, data}) {
+    const [usrNotes, setUsrNotes] = useState(data);
 
     const { activeLink, setActiveLink } = useContext(AppContext);
     useEffect(() => {
       setActiveLink("learn");
     }, []);
-    
+
+    const handleDelete = (id) => {
+        setUsrNotes(prevUsrNotes => {
+            return prevUsrNotes.filter(item => item.id !== id)
+        })
+    }
+
     return(
       
         <div className="bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-black/[.6]">
@@ -33,8 +40,8 @@ export default function Notes({session, data}) {
             </form>
 
             <div id="results" className={`mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll`} >
-            {data.map((item, index) => (
-                <Cards key={index} word={item.jishodata} cid={item.id}/>
+            {usrNotes.map((item, index) => (
+                <Cards key={index} word={item.jishodata} cid={item.id} onDelete={handleDelete }/>
             ))}
             </div>
 

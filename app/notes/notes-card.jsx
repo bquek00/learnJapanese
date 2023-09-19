@@ -2,7 +2,7 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useState } from 'react';
 
-export default function Cards({word, cid}) {
+export default function Cards({word, cid, onDelete}) {
     const supabase = createClientComponentClient()
     const [popUp, setPopup] = useState(false);
 
@@ -27,7 +27,7 @@ export default function Cards({word, cid}) {
                 .eq('id', cid)
                 .eq('uid', session?.user?.id)
 
-                console.log(data)
+                onDelete(cid)
                 
 
                 alert("Deleted " + toAdd)
