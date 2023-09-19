@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import Cards from './cards';
+import Cards from '@/components/wordCard';
 import Loader from '@/components/Loader';
 
 export default function Learn() {
@@ -59,7 +59,7 @@ export default function Learn() {
 
             <div id="results" className={`${loading ? "invisible" : "visible"} mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll`} >
             {data && data.data.map((wordEntry, index) => (
-                <Cards key={index} word={wordEntry} />
+                <Cards key={index} word={wordEntry} isSearch={true}/>
             ))}
             </div>
 

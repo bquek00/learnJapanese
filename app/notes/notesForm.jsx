@@ -4,10 +4,11 @@ import Loader from '@/components/Loader';
 import { AppContext } from '@/context/NavContext';
 import { createContext, useContext} from 'react';
 import { useEffect } from 'react';
-import Cards from './notes-card';
+import Cards from '@/components/wordCard';
 
 export default function Notes({session, data}) {
     const [usrNotes, setUsrNotes] = useState(data);
+    const [searchInput, setSearchInput] = useState('');
 
     const { activeLink, setActiveLink } = useContext(AppContext);
     useEffect(() => {
@@ -41,7 +42,7 @@ export default function Notes({session, data}) {
 
             <div id="results" className={`mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll`} >
             {usrNotes.map((item, index) => (
-                <Cards key={index} word={item.jishodata} cid={item.id} onDelete={handleDelete }/>
+                <Cards key={index} word={item.jishodata} isSearch={false} cid={item.id} onDelete={handleDelete }/>
             ))}
             </div>
 
