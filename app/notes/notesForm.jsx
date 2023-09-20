@@ -15,12 +15,15 @@ export default function Notes({session, data}) {
       setActiveLink("learn");
     }, []);
 
+    const filteredNotes = usrNotes.filter(item =>
+        item.slug.includes(searchInput)
+    );
+
     const handleDelete = (id) => {
         setUsrNotes(prevUsrNotes => {
             return prevUsrNotes.filter(item => item.id !== id)
         })
     }
-
     return(
       
         <div className="bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-black/[.6]">
@@ -36,14 +39,13 @@ export default function Notes({session, data}) {
                     placeholder="Filter Notes" 
                     onChange={(e) => setSearchInput(e.target.value)}
                     required />
-                    <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Filter</button>
                 </div>
             </form>
 
             <div id="results" className={`mt-20 absolute inset-basic inset-x-0 bottom-0 overflow-scroll`} >
-            {usrNotes.map((item, index) => (
-                <Cards key={index} word={item.jishodata} isSearch={false} cid={item.id} onDelete={handleDelete }/>
-            ))}
+            {filteredNotes.map((item, index) => (
+                    <Cards key={index} word={item.jishodata} isSearch={false} cid={item.id} onDelete={handleDelete} />
+                ))}
             </div>
 
 

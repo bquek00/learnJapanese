@@ -165,7 +165,7 @@ export default function Cards({word, isSearch, cid, onDelete}) {
 
         <button className={`text-white 
             ${isSearch ? "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300" : "bg-red-700 hover:bg-red-800 focus:ring-red-300"}
-            focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
+            mt-2 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-2 text-center align-middle flex items-center justify-center
             md:hidden`}
             onClick={() => handleClick()}>
                 {isSearch ? "Add to notes" : "Delete"}
