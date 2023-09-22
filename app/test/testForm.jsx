@@ -58,7 +58,7 @@ export default function Test({data}) {
                 Begin
             </button>
 
-            <div className={`${!test ? "hidden" : "block"} absolute top-basic inset-x-basic bg-black/[.2]`}>
+            <div className={`${!test ? "hidden" : "block"} absolute top-basic inset-x-basic bg-black/[.2] rounded-xl`}>
                 <TestSection data={data} count={questions}/>
             </div>
 
