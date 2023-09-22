@@ -12,6 +12,10 @@ export default function Test({data}) {
     const [test, setTest] = useState(false);
     const [questions, setQuestions] = useState(2);
 
+    const restart = () => {
+        window.location.reload(false);
+    };
+
     const startTest = () => {
         setTest(true);
     };
@@ -59,7 +63,7 @@ export default function Test({data}) {
             </button>
 
             <div className={`${!test ? "hidden" : "block"} absolute top-basic inset-x-basic bg-black/[.2] rounded-xl`}>
-                <TestSection data={data} count={questions}/>
+                <TestSection data={data} count={questions} onRestart={restart}/>
             </div>
 
             

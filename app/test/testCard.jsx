@@ -3,20 +3,25 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function Cards({word, data, id, count, setCorrect}) {
+export default function Cards({word, data, id, count, setCorrect, check}) {
   const [selected, setSelected] = useState({});
+  const [result, setResult] = useState(false);
 
     const handleClick = (answer) => {
-      setSelected(answer)
-      if (word.id === answer.id) {
-        setCorrect(word.id, true)
-      } else {
-        setCorrect(word.id, false)
+      if (!check) {
+        setSelected(answer)
+        if (word.id === answer.id) {
+          setCorrect(word.id, true)
+          setResult(true)
+        } else {
+          setCorrect(word.id, false)
+          setResult(false)
+        }
       }
     };
 
     return (
-        <div className='bg-white m-3 p-2 rounded-xl'>
+        <div className={`bg-white m-3 p-2 rounded-xl ${check ? "border-4": ""} ${result ? "border-emerald-500" : "border-red-500"}`}>
             <p className='text-2xl'>Match the word with the definition</p>
             <p className='text-3xl'>{word.slug}</p>
 
