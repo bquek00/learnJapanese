@@ -10,6 +10,7 @@ import Cards from './testCard';
 export default function TestSection({data, count})  {
      // State to store the selected random data
      const [randomData, setRandomData] = useState([]);
+     const [correct, setCorrect] = useState({});
 
      useEffect(() => {
         if (data && Array.isArray(data)) {
@@ -18,7 +19,16 @@ export default function TestSection({data, count})  {
             
             // Shuffle the copied array and pick the first 'count' number of elements
             const shuffledData = dataCopy.sort(() => 0.5 - Math.random());
-            setRandomData(shuffledData.slice(0, count));
+            const selectedData = shuffledData.slice(0, count);
+            setRandomData(selectedData);
+
+            const newDict = {};
+            selectedData.forEach(item => {
+                newDict[item.id] = false;
+            });
+
+            setCorrect(newDict);
+            console.log(JSON.stringify(newDict))
         }
         }, [data, count]);
 

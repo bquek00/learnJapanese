@@ -10,6 +10,11 @@ export default function Cards({word, data, id, count}) {
 
     const handleClick = (answer) => {
       setSelected(answer)
+      if (word.id === answer.id) {
+        alert("correct")
+      } else {
+        alert("wrong")
+      }
     };
 
     useEffect(() => {
