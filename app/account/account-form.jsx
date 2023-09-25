@@ -1,6 +1,9 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import Box from './box'
+import { AppContext } from '@/context/NavContext';
+import { createContext, useContext} from 'react';
 
 export default function AccountForm({ session }) {
   const supabase = createClientComponentClient()
@@ -63,55 +66,23 @@ export default function AccountForm({ session }) {
     }
   }
 
+  const { activeLink, setActiveLink } = useContext(AppContext);
+  useEffect(() => {
+    setActiveLink("account");
+  }, []);
+
   return (
-    <div>
+    <div className='bg-fixed h-full w-full bg-black/[.6] flex justify-center items-center'>
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session?.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="fullName">Full Name</label>
-        <input
-          id="fullName"
-          type="text"
-          value={fullname || ''}
-          onChange={(e) => setFullname(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <button
-          onClick={() => updateProfile({ fullname, username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <form action="/auth/signout" method="post">
-          <button type="submit">
-            Sign out
-          </button>
-        </form>
+        <p className='text-white text-base lg:text-5xl font-bold text-center lg:mt-0'>Welcome {session?.user.email}</p>
+        <p className='text-white text-2xl lg:text-7xl font-bold text-center lg:mt-8'>Learn Japanese with 3 easy steps</p>
+        <div className='flex flex-col lg:flex-row justify-center mt-8 items-center'>
+          <Box title="Learn" description="Search Japanese words via Kanji, Hiragana, Katakana, or English"
+          link="/learn"/>
+          <Box title="Review" description="Review and handle your saved notes"
+          link="/notes"/>
+          <Box title="Test" description="Test your knowledge" link="/test"/>
+        </div>
       </div>
     </div>
   )
