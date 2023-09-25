@@ -28,7 +28,7 @@ export default function Login() {
           } else {
             setUser(true);
             //await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve));
-            router.push("/account")
+            router.push("/auth/callback")
             
           }
         } catch (error) {

@@ -31,7 +31,7 @@ export default function Register() {
                 } else {
                     setUser(true);
                     //await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve));
-                    router.push("/account")
+                    router.push("/auth/account")
                 } 
             } catch (error) {
                 console.log("Register error: ", error.message);
