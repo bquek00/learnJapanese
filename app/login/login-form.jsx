@@ -27,8 +27,8 @@ export default function Login() {
             alert('Invalid Credentials');
           } else {
             setUser(true);
-            //await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve));
-            router.push("/auth/callback")
+            await new Promise(resolve => router.push('/auth/callback', undefined, { shallow: true }, resolve));
+            //router.push("/auth/callback")
             
           }
         } catch (error) {
