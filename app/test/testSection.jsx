@@ -58,16 +58,17 @@ export default function TestSection({data, count, onRestart})  {
 
     return(
         <div>  
-            <div className='flex justify-between'>
-                <p className={`text-white ${check ? "visible" : "invisible"} p-2 text-xl font-bold `}>
+            <div className='flex justify-between flex-col lg:flex-row'>
+                <p className={`text-center lg:text-left text-white ${check ? "block" : "hidden lg:block"}
+                ${check ? "visible" : "invisible"} p-2 text-sm lg:text-xl font-bold `}>
                     Score: {Object.values(correct).filter(value => value === true).length}/{Object.values(correct).length}
                 </p> 
-                <div className='flex justify-end'>
+                <div className='flex justify-center lg:justify-end pt-2 lg:pt-0'>
                     <button 
                     type="submit" 
                     onClick={() => onRestart()}
                     className={`mr-2
-                    text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+                    text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-min h-min
                     focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 
                     dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
                         Restart
@@ -77,7 +78,7 @@ export default function TestSection({data, count, onRestart})  {
                     type="submit" 
                     onClick={() => setCheck(true)}
                     className={`${check ? "hidden" : "block"}
-                    text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+                    text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-min h-min
                     focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 
                     dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
                         Check
