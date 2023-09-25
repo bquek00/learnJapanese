@@ -4,6 +4,8 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 import Link from 'next/link'
+import { createContext, useContext} from 'react';
+import { AppContext } from '@/context/NavContext';
 
 export default function Register() {
     const supabase = createClientComponentClient()
@@ -12,6 +14,7 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const {user, setUser} = useContext(AppContext);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -26,6 +29,7 @@ export default function Register() {
                     alert(`error: ${error.message}`);
                     console.log("error: ", error.message);
                 } else {
+                    setUser(true);
                     await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve))
                     //router.push("/account");
                 } 
@@ -38,8 +42,8 @@ export default function Register() {
     }
 
     return(
-        <section className="bg-fixed bg-black/[.6] pt-10"> 
-            <div className="h-screen flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <section className="bg-fixed bg-black/[.6]"> 
+            <div className="mt-10 h-screen flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

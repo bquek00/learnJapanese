@@ -4,6 +4,8 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
 import Loader from "@/components/Loader";
+import { createContext, useContext} from 'react';
+import { AppContext } from '@/context/NavContext';
 
 export default function Login() {
     const supabase = createClientComponentClient()
@@ -11,6 +13,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const {user, setUser} = useContext(AppContext);
 
 
     const handleLogin = async (e) => {
@@ -23,6 +26,7 @@ export default function Login() {
             console.log('Login error:', error.message);
             alert('Invalid Credentials');
           } else {
+            setUser(true);
             await new Promise(resolve => router.push('/account', undefined, { shallow: true }, resolve))
             //router.push("/account");
             
@@ -55,10 +59,7 @@ export default function Login() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                             </div>
-                            <div className="flex items-center justify-between">
-                                <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
-                            </div>
-
+                        
                             <div className="flex justify-center">
                             {loading ? (<Loader/>) : (
                             <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800">

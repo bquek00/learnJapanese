@@ -5,14 +5,29 @@ import { AppContext } from '@/context/NavContext';
 import { createContext, useContext} from 'react';
 import { useEffect } from 'react';
 import Cards from '@/components/wordCard';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
-export default function Notes({session, data}) {
+export default function Notes({data}) {
+    const supabase = createClientComponentClient()
     const [usrNotes, setUsrNotes] = useState(data);
     const [searchInput, setSearchInput] = useState('');
 
     const { activeLink, setActiveLink } = useContext(AppContext);
+
+    async function getProfile() {
+        const {
+            data: { session },
+        } = await supabase.auth.getSession()
+       // console.log(session?.user?.id);
+
+        const { data, err } = await supabase.from('notes').select().eq('uid', session?.user?.id);
+        //console.log(data)
+        setUsrNotes(data);
+    }
+
     useEffect(() => {
       setActiveLink("learn");
+      getProfile();
     }, []);
 
     const filteredNotes = usrNotes.filter(item =>

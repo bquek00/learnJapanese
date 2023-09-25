@@ -54,8 +54,6 @@ export default function Cards({word, isSearch, cid, onDelete}) {
             if (session) {
                 var user = session?.user?.id
 
-                alert("Added " + toAdd)
-
                 const { _, error } = await supabase.from('notes').insert({
                     uid: session?.user?.id,
                     isjisho: true,
@@ -65,6 +63,8 @@ export default function Cards({word, isSearch, cid, onDelete}) {
 
                 if (error) {
                     console.log(error);
+                } else {
+                    alert("Added " + toAdd)
                 }
 
             } else {

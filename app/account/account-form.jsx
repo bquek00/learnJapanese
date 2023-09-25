@@ -73,7 +73,7 @@ export default function AccountForm({ session }) {
 
   return (
     <div className='bg-fixed h-full w-full bg-black/[.6] flex justify-center items-center'>
-      <div>
+      <div className='bg-black/[.1] p-5 rounded-xl'>
         <p className='text-white text-base lg:text-5xl font-bold text-center lg:mt-0'>Welcome {session?.user.email}</p>
         <p className='text-white text-2xl lg:text-7xl font-bold text-center lg:mt-8'>Learn Japanese with 3 easy steps</p>
         <div className='flex flex-col lg:flex-row justify-center mt-8 items-center'>

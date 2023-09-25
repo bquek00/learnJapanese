@@ -14,7 +14,7 @@ export default function Home() {
     return (
       <div>
       <Navbar />
-      <div className="h-screen bg-center bg-cover bg-[url('/images/fuji.jpeg')]">
+      <div className="h-screen bg-center bg-cover bg-[url('/images/fuji.jpeg')] overflow-hidden">
         <Register/>
       </div>
       </div>

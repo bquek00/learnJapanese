@@ -19,14 +19,14 @@ export default function Cards({word}) {
             if (session) {
                 var user = session?.user?.id
 
-                alert("Added " + toAdd)
-
                 const { _, error } = await supabase.from('notes').insert({
                     uid: session?.user?.id,
                     isjisho: true,
                     slug: toAdd,
                     jishodata: toDefine,
                 }); 
+
+                alert("Added " + toAdd)
 
                 if (error) {
                     console.log(error);
