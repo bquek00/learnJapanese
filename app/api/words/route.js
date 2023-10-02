@@ -3,7 +3,8 @@ import JishoAPI from 'unofficial-jisho-api';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
-  const key = searchParams.get('key')
+  let key = searchParams.get('key')
+  key = key ? key.toLowerCase() : key;
 
   const jisho = new JishoAPI();
 
