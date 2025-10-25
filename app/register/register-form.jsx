@@ -4,7 +4,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 import Link from 'next/link'
-import { createContext, useContext} from 'react';
+import { useContext } from 'react';
 import { AppContext } from '@/context/NavContext';
 
 export default function Register() {
@@ -14,7 +14,7 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const {user, setUser} = useContext(AppContext);
+    const { setUser } = useContext(AppContext);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -29,10 +29,9 @@ export default function Register() {
                     alert(`error: ${error.message}`);
                     console.log("error: ", error.message);
                 } else {
-                    setUser(true);
-                    await new Promise(resolve => router.push('/auth/callback', undefined, { shallow: true }, resolve));
-                    //router.push("/auth/callback")
-                } 
+                    setUser(data?.user ?? null);
+                    router.push('/auth/callback');
+                }
             } catch (error) {
                 console.log("Register error: ", error.message);
             } finally {

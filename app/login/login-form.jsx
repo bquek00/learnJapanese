@@ -4,7 +4,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
 import Loader from "@/components/Loader";
-import { createContext, useContext} from 'react';
+import { useContext } from 'react';
 import { AppContext } from '@/context/NavContext';
 
 export default function Login() {
@@ -13,23 +13,22 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const {user, setUser} = useContext(AppContext);
+    const { setUser } = useContext(AppContext);
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
     
         try {
-            setLoading(true);  
+            setLoading(true);
           const { error, data } = await supabase.auth.signInWithPassword({email: email, password: password });
           if (error) {
             console.log('Login error:', error.message);
             alert('Invalid Credentials');
           } else {
-            setUser(true);
-            await new Promise(resolve => router.push('/auth/callback', undefined, { shallow: true }, resolve));
-            //router.push("/auth/callback")
-            
+            setUser(data?.user ?? null);
+            router.push('/auth/callback');
+
           }
         } catch (error) {
           console.error('Login error:', error.message);

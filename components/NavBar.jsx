@@ -143,7 +143,7 @@ export default function NavBar() {
 
 
                             <li>
-                                <form action={user ? "/auth/signout": "/login"} method={user ? "post": "/get"}>
+                                <form action={user ? "/auth/signout": "/login"} method={user ? "post": "get"}>
                                     <button type="submit"
                                     //onClick={() => handleLinkClick("account")}
                                     className={
@@ -157,7 +157,7 @@ export default function NavBar() {
 
                 <div className="flex lg:order-2">
 
-                <form action={user ? "/auth/signout": "/login"} method={user ? "post": "/get"}>
+                <form action={user ? "/auth/signout": "/login"} method={user ? "post": "get"}>
                     <button 
                     href= {user ? "/auth/signout": "/login"} 
                     type="submit" 
